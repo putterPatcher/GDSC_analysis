@@ -1,0 +1,18 @@
+from path import relative_dir, table_3
+
+path = relative_dir+table_3
+
+import pandas as pd
+from randomization_test_for_interaction import interaction_permutation_gpu_batched
+df = pd.read_csv(path)
+
+df = df.melt(['COSMIC_ID'], var_name='Gene', value_name='Mutation')
+
+print(df.dtypes)
+print(df.isna().sum())
+df.dropna(inplace=True)
+print(df.isna().sum())
+print(df.shape)
+
+result = interaction_permutation_gpu_batched(df, "COSMIC_ID", 'Gene', 'Mutation', 460000)
+print(result)
