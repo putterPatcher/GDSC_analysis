@@ -9,6 +9,10 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn import metrics
 from sklearn.preprocessing import LabelEncoder
 
+print(df.isna().sum())
+df.dropna(inplace=True)
+print(df.isna().sum())
+
 x = df.iloc[:, 1:]
 encoder = LabelEncoder()
 y = encoder.fit_transform(df.iloc[:, 0])

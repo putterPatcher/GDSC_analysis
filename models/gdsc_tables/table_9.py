@@ -6,6 +6,7 @@ import pandas as pd
 
 df_dic = pd.read_excel(path, sheet_name=None)
 for sheet_name, df in df_dic.items():
+    print("Sheetname:", sheet_name)
     if sheet_name == 'caption':
         continue
     from sklearn.naive_bayes import BernoulliNB

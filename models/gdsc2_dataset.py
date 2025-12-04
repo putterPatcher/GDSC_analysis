@@ -61,11 +61,15 @@ r2 = r2_score(y_test, y_pred)
 print(f"Mean Squared Error: {mse}")
 print(f"R^2 Score: {r2}")
 
+with open('gdsc2.json', 'w') as file:
+    import json
+    file.write(json.dumps([y_test.values.tolist(), y_pred.tolist()]))
+
 from matplotlib import pyplot as plt
 
-plt.scatter([i for i in range(1,len(y_test)+1)], y_test, label='Actual')
-plt.scatter([i for i in range(1,len(y_test)+1)], y_pred, color='red', marker='^', label='Predicted')
-plt.ylabel("LN_IC50")
-plt.legend()
+plt.scatter(y_test, y_pred, color='green', marker='^')
+plt.ylabel("Predicted")
+plt.xlabel("Actual")
 plt.show()
+
 

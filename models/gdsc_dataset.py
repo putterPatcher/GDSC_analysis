@@ -74,7 +74,7 @@ print(f"R^2 Score: {r2}")
 
 with open('gdsc.json', 'w') as file:
     import json
-    json.dumps([y_test, y_pred])
+    file.write(json.dumps([y_test.values.tolist(), y_pred.tolist()]))
 
 from matplotlib import pyplot as plt
 
