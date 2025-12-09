@@ -26,6 +26,10 @@ y_pred = gnb.predict(x)
 accuracy = metrics.accuracy_score(y, y_pred)
 print("Accuracy:", accuracy)
 
+import joblib
+
+joblib.dump(gnb, 'table_2.joblib')
+
 from matplotlib import pyplot as plt
 
 plt.scatter([i for i in range(1,len(y)+1)], y, label='Actual')

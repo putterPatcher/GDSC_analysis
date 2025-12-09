@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 cell_line_details_path = "../Data/Cell_Lines_Details.xlsx"
 
 df = pd.read_excel(cell_line_details_path)
-random_seed = [i for i in range(130, 147)]
+random_seed = [145,]
 
 # Data Screening
 
@@ -46,6 +46,7 @@ x_gb_1 = df1[['Cancer Type (matching TCGA label)']]
 def perform_classification(random_seed):
     result = []
     pred_vals = []
+    model = []
     # RandomForestClassifier
 
     x_train, x_test, y_train, y_test = train_test_split(x_rf, y, test_size=0.3, random_state=random_seed)
@@ -58,6 +59,7 @@ def perform_classification(random_seed):
     # print(f"Accuracy: {accuracy:.4f}")
     result.append(accuracy)
     pred_vals.append([y_test, predictions])
+    model.append(rf_model)
     # from matplotlib import pyplot as plt
 
     # plt.scatter([i for i in range(1,len(y_test)+1)], encoder1.inverse_transform(y_test), label='Actual')
@@ -76,7 +78,7 @@ def perform_classification(random_seed):
     # print(f"Accuracy: {accuracy:.4f}")
     result.append(accuracy)
     pred_vals.append([y_test, predictions])
-
+    model.append(gb_model)
     # from matplotlib import pyplot as plt
 
     # plt.scatter([i for i in range(1,len(y_test)+1)], encoder1.inverse_transform(y_test), label='Actual')
@@ -95,7 +97,7 @@ def perform_classification(random_seed):
     # print(f"Accuracy: {accuracy:.4f}")
     result.append(accuracy)
     pred_vals.append([y_test, predictions])
-
+    model.append(rf_model)
     # from matplotlib import pyplot as plt
 
     # plt.scatter([i for i in range(1,len(y_test)+1)], encoder1.inverse_transform(y_test), label='Actual')
@@ -114,7 +116,7 @@ def perform_classification(random_seed):
     # print(f"Accuracy: {accuracy:.4f}")
     result.append(accuracy)
     pred_vals.append([y_test, predictions])
-
+    model.append(gb_model)
     # from matplotlib import pyplot as plt
 
     # plt.scatter([i for i in range(1,len(y_test)+1)], encoder1.inverse_transform(y_test), label='Actual')
@@ -122,14 +124,14 @@ def perform_classification(random_seed):
     # plt.legend()
     # plt.show()
 
-    return result, pred_vals
+    return result, pred_vals, model
 
 max_till = 0
 result_till = []
 pred_vals_till = []
 max_seed = 0
 for i in random_seed:
-    results, pred_values = perform_classification(i)
+    results, pred_values, model = perform_classification(i)
     if max(results) > max_till:
         max_till = max(results)
         max_seed = i
@@ -142,6 +144,13 @@ for i in random_seed:
 print()
 print("Seed:", max_seed)
 print(result_till)
+import joblib
+
+joblib.dump(model[0], 'rf3.joblib')
+joblib.dump(model[1], 'gb3.joblib')
+joblib.dump(model[2], 'rf1.joblib')
+joblib.dump(model[3], 'gb1.joblib')
+
 from matplotlib import pyplot as plt
 for y_test, predictions in pred_vals_till:
     plt.scatter([i for i in range(1,len(y_test)+1)], encoder1.inverse_transform(y_test), label='Actual')

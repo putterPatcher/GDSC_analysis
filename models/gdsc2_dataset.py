@@ -65,6 +65,10 @@ with open('gdsc2.json', 'w') as file:
     import json
     file.write(json.dumps([y_test.values.tolist(), y_pred.tolist()]))
 
+import joblib
+
+joblib.dump(pipeline, 'gdsc2.joblib')
+
 from matplotlib import pyplot as plt
 
 plt.scatter(y_test, y_pred, color='green', marker='^')
