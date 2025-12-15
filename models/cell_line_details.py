@@ -31,16 +31,26 @@ encoder1 = LabelEncoder()
 
 y = encoder1.fit_transform(df1['Microsatellite instability Status (MSI)'])
 
+import joblib
+joblib.dump(encoder1, 'y_cell_line.joblib')
+
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.ensemble import RandomForestClassifier, HistGradientBoostingClassifier
 
 encoder = OneHotEncoder()
 x_rf = encoder.fit_transform(df1[['Cancer Type (matching TCGA label)', 'Screen Medium', 'Growth Properties']])
+
+import joblib
+joblib.dump(encoder, 'x_rf3.joblib')
+
 x_gb = df1[['Cancer Type (matching TCGA label)', 'Screen Medium', 'Growth Properties']]
 
 encoder_1 = OneHotEncoder()
 x_rf_1 = encoder_1.fit_transform(df1[['Cancer Type (matching TCGA label)']])
+
+joblib.dump(encoder_1, 'x_rf1.joblib')
+
 x_gb_1 = df1[['Cancer Type (matching TCGA label)']]
 
 def perform_classification(random_seed):
