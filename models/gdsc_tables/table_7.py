@@ -17,6 +17,7 @@ x = df.iloc[:, 1:]
 encoder = LabelEncoder()
 y = encoder.fit_transform(df.iloc[:, 0])
 
+
 # Create a Gaussian Naive Bayes classifier
 gnb = GaussianNB()
 
